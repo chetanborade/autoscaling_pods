@@ -3,9 +3,11 @@ kind: Service
 metadata:
   name: python-hello-world-service
 spec:
+  type: NodePort
   selector:
     app: python-hello-world
   ports:
     - protocol: TCP
       port: 80
       targetPort: 5000
+      nodePort: 30001
