@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-hello-world
+  template:
+    metadata:
+      labels:
+        app: python-hello-world
+    spec:
+      containers:
+      - name: python-hello-world
+        image: chetanborade/python_hello_world
+        ports:
+        - containerPort: 5000
