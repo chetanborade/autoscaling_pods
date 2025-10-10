@@ -1,0 +1,16 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: python-hello-world-scaler
+spec:
+  scaleTargetRef:
+    name: python-hello-world
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  triggers:
+  - type: prometheus
+    metadata:
+      serverAddress: http://prometheus-service.default.svc.cluster.local:9090
+      metricName: http_requests_per_second
+      threshold: '10'
+      query: 'rate(request_count_total{job="python-hello-world"}[1m]) * 60'

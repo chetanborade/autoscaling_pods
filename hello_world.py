@@ -7,6 +7,11 @@ REQUEST_COUNT = Counter('request_count', 'Total number of requests')
 @app.route('/')
 def hello_world():
     REQUEST_COUNT.inc()
+    # Simulate CPU-intensive work for each HTTP request
+    import time
+    start = time.time()
+    while time.time() - start < 0.1:  # 100ms of CPU work per request
+        x = sum(i*i for i in range(1000))
     return 'Hello, World!'
 
 @app.route('/metrics')
